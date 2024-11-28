@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ninja Fitness</title>
+    <link rel="stylesheet" href="ninja style.css">
+</head>
+<body>
+    <!-- Sidebar -->
+    <div class="sidebar">
+        <a class="active" href="#home">Home</a>
+        <a href="#workout">Workout</a>
+        <a href="#routine">Routine</a>
+        <a href="#tools">Tools</a>
+        <a href="#diet">Diet</a>
+    </div>
+    
+    <!-- Navbar -->
+    <header class="navbar">
+        <div class="logo-container">
+            <img src="E:\Rohit_BMS\3rd SEM\Hackathons\ding-ding\logo1.jpg" alt="Ninja Fitness Logo" class="logo-img">
+            <div class="logo-title">Ninja Fitness</div>
+        </div>
+        <input type="checkbox" id="menu-toggle" class="menu-toggle">
+        <label for="menu-toggle" class="menu-icon">☰</label>
+        <nav>
+            <a href="#home" class="active">Home</a>
+            <a href="#workout">Workout</a>
+            <a href="#routine">Routine</a>
+            <a href="#tools">Tools</a>
+            <a href="#diet">Diet</a>
+        </nav>
+    </header>
+    
+    <!-- Home Section -->
+    <section id="home">
+        <div class="home-content">
+            <h1>Welcome to <span>Ninja Fitness</span></h1>
+            <p>Your journey to health and fitness starts here. Discover workouts, routines, tools, and nutrition tips tailored for you.</p>
+            <a href="#workout" class="btn">Get Started</a>
+        </div>
+    </section>
+    
+    <!-- Workout Section -->
+    <section id="workout" class="services">
+        <h2>Workout Plans</h2>
+        <div class="service-container">
+            <div class="service">
+                <h3>Upper Body</h3>
+                <p>Build strength with push-ups, pull-ups, and shoulder presses.</p>
+            </div>
+            <div class="service">
+                <h3>Lower Body</h3>
+                <p>Target your legs with squats, lunges, and deadlifts.</p>
+            </div>
+            <div class="service">
+                <h3>Full Body</h3>
+                <p>High-intensity exercises like burpees and mountain climbers.</p>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Routine Section -->
+    <section id="routine" class="skills">
+        <h2>Daily Routine</h2>
+        <div class="skill-container">
+            <div class="skill">
+                <h3>Morning</h3>
+                <p>Start with cardio to boost metabolism.</p>
+            </div>
+            <div class="skill">
+                <h3>Afternoon</h3>
+                <p>Strength training to build muscle.</p>
+            </div>
+            <div class="skill">
+                <h3>Evening</h3>
+                <p>Flexibility exercises like yoga or stretching.</p>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Tools Section -->
+    <section id="tools" class="education">
+        <h2>Fitness Tools</h2>
+        <ul>
+            <li><strong>Dumbbells:</strong> Strengthen your arms and shoulders.</li>
+            <li><strong>Resistance Bands:</strong> Portable and versatile.</li>
+            <li><strong>Yoga Mats:</strong> Perfect for stretching and yoga sessions.</li>
+            <li><strong>Jump Ropes:</strong> Great for cardio workouts.</li>
+        </ul>
+    </section>
+    
+    <!-- Diet Section -->
+    <section id="diet" class="contact">
+        <h2>Diet & Nutrition</h2>
+        <ul>
+            <li><strong>Protein:</strong> Eggs, chicken, tofu, and legumes.</li>
+            <li><strong>Carbohydrates:</strong> Rice, oats, and sweet potatoes.</li>
+            <li><strong>Healthy Fats:</strong> Nuts, avocados, and olive oil.</li>
+            <li><strong>Vegetables:</strong> Broccoli, spinach, and carrots.</li>
+        </ul>
+    </section>
+
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+        }
+        #chat-box {
+            width: 100%;
+            max-width: 500px;
+            height: 500px;
+            margin: 0 auto;
+            border: 1px solid #ccc;
+            padding: 10px;
+            overflow-y: scroll;
+            background-color: #f9f9f9;
+        }
+        .message {
+            padding: 10px;
+            max-width: 500px;
+            margin: 10px 0;
+            word-wrap: break-word;
+            white-space: pre-wrap;
+        }
+        .user-message {
+            background-color: #010e0f;
+            text-align: right;
+        }
+        .bot-message {
+            background-color: #983535;
+            text-align: left;
+        }
+        .thinking-message {
+            background-color: #f1f1f1;
+            text-align: left;
+            color: grey;
+            font-style: italic;
+            font-size: 100px;
+            animation: blink 1s infinite;
+        }
+        @keyframes blink {
+            0% { opacity: 0; }
+            50% { opacity: 1; }
+            100% { opacity: 0; }
+        }
+        #input-box {
+            width: 80%;
+            padding: 10px;
+        }
+        #send-button {
+            padding: 10px 15px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+        }
+    </style>
+
+    <h2 style="text-align:center;">Mental Health Chatbot</h2>
+    <div id="chat-box"></div>
+    <input type="text" id="input-box" placeholder="Type a message..." />
+    <button id="send-button">Send</button>
+
+    <script>
+        const sendButton = document.getElementById('send-button');
+        const inputBox = document.getElementById('input-box');
+        const chatBox = document.getElementById('chat-box');
+
+        // Function to clean up the bot's response (e.g., remove markdown, add line breaks)
+        function cleanResponse(message) {
+    console.log('Raw Message:', message); // Log raw message for debugging
+    let cleanedMessage = message
+        .replace(/\*\*/g, '')  // Remove double asterisks (for bold)
+        .replace(/\*/g, '')    // Remove single asterisks (for italics)
+        .replace(/_/g, '')     // Remove underscores (sometimes used for italics)
+        .replace(/~~/g, '');   // Remove tilde for strikethrough (if used)
+
+    // Add <br> after each sentence
+    cleanedMessage = cleanedMessage.replace(/([.?!])\s*(?=[A-Z])/g, '$1<br><br>');
+    console.log('Cleaned Message:', cleanedMessage); // Log cleaned message
+    return cleanedMessage;
+}
+
+        // Function to send user message to the server and display it
+        function sendMessage() {
+            const userMessage = inputBox.value.trim();
+            if (userMessage !== "") {
+                // Display user message in chat
+                chatBox.innerHTML += `<div class="message user-message">${userMessage}</div>`;
+                inputBox.value = "";  // Clear the input box
+
+                // Show thinking message while generating the response
+                chatBox.innerHTML += `<div class="message thinking-message">...</div>`;
+                chatBox.scrollTop = chatBox.scrollHeight;  // Auto-scroll to latest message
+
+                // Send message to the backend (API call to Flask server)
+                fetch('http://localhost:5000/get_response', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({ message: userMessage }),
+                })
+                .then(response => response.json())
+                .then(data => {
+                    // Remove the thinking message
+                    const thinkingMessage = document.querySelector('.thinking-message');
+                    if (thinkingMessage) {
+                        thinkingMessage.remove();
+                    }
+
+                    // Clean the response (remove markdown, add line breaks)
+                    const cleanedResponse = cleanResponse(data.response);
+
+                    // Display bot response in chat after cleaning it
+                    chatBox.innerHTML += `<div class="message bot-message">${cleanedResponse}</div>`;
+                    chatBox.scrollTop = chatBox.scrollHeight;  // Auto-scroll to latest message
+                })
+                .catch(error => console.error('Error:', error));
+            }
+        }
+
+        sendButton.addEventListener('click', sendMessage);
+
+        // Allow pressing 'Enter' to send the message
+        inputBox.addEventListener('keypress', (event) => {
+            if (event.key === 'Enter') {
+                sendMessage();
+            }
+        });
+    </script>
+</body>
+</html>
